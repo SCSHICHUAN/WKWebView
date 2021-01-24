@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+
+<head>
+    <title>JS交互OC</title>
+    <meta charset="utf-8">
+        </head>
+
+<!--   CSS语法-->
+<style type="text/css">
+  button{
+     display:block;
+     border:1px green solid;
+     width: 200px;
+     height: 60px;
+     font-size: 20px;
+     text-align: center;
+     color: green;
+     margin: 0 auto;
+ }
+body{
+    border:1px black solid;
+    margin:5px;
+}
+</style>
+
+<body>
+    
+    <h2 style="text-align:center">Html view</h2>
+    <button type = "button" onclick = "jsToOcFunction2()">JS调用OC</button>
+    <div class ="example"></div>
+    
+    
+    
+    <!--JS语法-->
+<script type = "text/javascript">
+    
+    //JS调用OC
+    function jsToOcFunction2()
+    {
+        window.webkit.messageHandlers.jsToOcWithPrams.postMessage({"params":"我是html的文字"});
+    }
+    
+    //OC调用JS
+    function changeColor(parameter)
+    {
+       var list = document.getElementsByClassName("example")[0];
+        list.innerHTML = parameter;
+    }
+    
+</script>
+</body>
+</html>
