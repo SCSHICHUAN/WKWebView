@@ -185,7 +185,10 @@
      config.userContentController = wkUController;
     
     
-    
+    // addScriptMessageHandler 很容易导致循环引用
+    // 控制器 强引用了WKWebView,WKWebView copy(强引用了）configuration， configuration copy （强引用了）userContentController
+    // userContentController 强引用了 self （控制器）
+   // [self.wkWebView.configuration.userContentController addScriptMessageHandler:self name:@"ScanAction"];
     
     
     //以下代码适配文本大小
@@ -340,6 +343,5 @@ NSString *htmlText = @"<div style=\"background-color:#0066FF;box-shadow:0px 1px 
     //移除注册的js方法
     [[self.wkWebView configuration].userContentController removeScriptMessageHandlerForName:@"jsToOcWithPrams"];
     [[self.wkWebView configuration].userContentController removeScriptMessageHandlerForName:@"jsToOcWithPramsNet"];
-   
 }
 @end
