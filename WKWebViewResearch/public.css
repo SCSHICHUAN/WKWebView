@@ -1,0 +1,10 @@
+button{
+   display:block;
+   border:1px green solid;
+   width: 200px;
+   height: 60px;
+   font-size: 20px;
+   text-align: center;
+   color: green;
+   margin: 0 auto;
+}

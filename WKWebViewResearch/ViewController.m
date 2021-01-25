@@ -197,11 +197,22 @@
     WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jSString injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
     [config.userContentController addUserScript:wkUScript];
     
-    //判断网络
+    //添加静态JS
     NSString *scriptPath = [[NSBundle mainBundle] pathForResource:@"netJs.js" ofType:nil];
     NSString *scriptStr2 = [[NSString alloc]initWithContentsOfFile:scriptPath encoding:NSUTF8StringEncoding error:nil];
     WKUserScript *wkUScript2 = [[WKUserScript alloc] initWithSource:scriptStr2 injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
     [config.userContentController addUserScript:wkUScript2];
+    
+    
+    //添加静态的CSS
+    NSString *cssPath = [[NSBundle mainBundle] pathForResource:@"public.css" ofType:nil];
+    NSString *addCSS = [[NSString alloc]initWithContentsOfFile:cssPath encoding:NSUTF8StringEncoding error:nil];
+    addCSS = [addCSS stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    NSString *addCSSjs =[NSString stringWithFormat:@"let head = document.getElementsByTagName('head')[0];var css = document.createElement('style');css.innerHTML = '%@';css.type = 'text/css';head.appendChild(css);",addCSS];
+    
+    WKUserScript *wkUScript3 = [[WKUserScript alloc] initWithSource:addCSSjs injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+    [config.userContentController addUserScript:wkUScript3];
+    
     
     return config;
 }
